@@ -1,5 +1,14 @@
 import { useState } from "react";
-import { Button, Grid, TextField, Paper, Box, Typography } from "@mui/material";
+import {
+  Button,
+  Grid,
+  TextField,
+  Box,
+  Typography,
+  IconButton,
+} from "@mui/material";
+import RemoveCircleIcon from "@mui/icons-material/RemoveCircle";
+import AddCircleIcon from "@mui/icons-material/AddCircle";
 import { useMembers } from "../hooks/useMembers";
 import shuffle from "lodash.shuffle";
 
@@ -12,6 +21,16 @@ function DivideTeam({ backgroundColors }: divideTeamProps) {
   const [teamNum, setTeamNum] = useState(1);
   const [teamUsers, setTeamUsers] = useState<string[]>([]);
 
+  const handleIncrement = () => {
+    if (teamNum === 4) return;
+    setTeamNum(teamNum + 1);
+  };
+
+  const handleDecrement = () => {
+    if (teamNum === 1) return;
+    setTeamNum(teamNum - 1);
+  };
+
   const shuffleList = () => {
     setTeamUsers(shuffle(members.map((v) => v.option)));
   };
@@ -20,26 +39,43 @@ function DivideTeam({ backgroundColors }: divideTeamProps) {
     <>
       <Grid
         container
+        direction="column"
         alignItems="center"
         justifyContent="center"
-        direction="column"
         spacing={2}
       >
-        <Grid item xs={12}>
-          <TextField
-            id="standard-number"
-            label="チーム数(最大4)"
-            type="number"
-            defaultValue={1}
-            inputProps={{
-              max: 4,
-              min: 1,
-              style: { textAlign: "center" },
-            }}
-            variant="standard"
-            style={{ width: 100 }}
-            onChange={(event) => setTeamNum(Number(event.target.value))}
-          />
+        <Grid item>
+          <Grid container spacing={1} alignItems="center">
+            <Grid item>
+              <IconButton onClick={handleDecrement}>
+                <RemoveCircleIcon color="primary" />
+              </IconButton>
+            </Grid>
+            <Grid item>
+              <TextField
+                id="standard-number"
+                label="チーム数(最大4)"
+                value={teamNum}
+                type="number"
+                defaultValue={1}
+                inputProps={{
+                  style: { textAlign: "center" },
+                  inputMode: "numeric",
+                  pattern: "[0-9]*",
+                  min: 1, // 最小値
+                  max: 4, // 最大値
+                }}
+                variant="standard"
+                style={{ width: 100 }}
+                onChange={(event) => setTeamNum(Number(event.target.value))}
+              />
+            </Grid>
+            <Grid item>
+              <IconButton onClick={handleIncrement}>
+                <AddCircleIcon color="primary" />
+              </IconButton>
+            </Grid>
+          </Grid>
         </Grid>
         <Grid item xs={12}>
           <Button variant="contained" onClick={shuffleList}>
