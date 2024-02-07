@@ -39,7 +39,7 @@ function SortMember({ startRollAndStop }: sortMemberProps) {
             <Flipped key={v.option} flipId={v.option}>
               <Box
                 sx={{
-                  width: 250,
+                  width: 240,
                   height: 45,
                   backgroundColor: "#FFF",
                   color: "#6091d3",
@@ -47,7 +47,8 @@ function SortMember({ startRollAndStop }: sortMemberProps) {
                   borderRadius: 2,
                   border: 3,
                   borderColor: "#6091d3",
-                  textAlign: "center",
+                  // textAlign: "center",
+                  paddingLeft: 2,
                   lineHeight: 2.5,
                   mt: 3,
                 }}
