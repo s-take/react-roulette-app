@@ -23,8 +23,9 @@ function DivideTeam({ backgroundColors }: divideTeamProps) {
         alignItems="center"
         justifyContent="center"
         direction="column"
+        spacing={2}
       >
-        <Grid item xs={6}>
+        <Grid item xs={12}>
           <TextField
             id="standard-number"
             label="チーム数(最大4)"
@@ -39,7 +40,9 @@ function DivideTeam({ backgroundColors }: divideTeamProps) {
             style={{ width: 100 }}
             onChange={(event) => setTeamNum(Number(event.target.value))}
           />
-          <Button variant="contained" onClick={shuffleList} sx={{ ml: 4 }}>
+        </Grid>
+        <Grid item xs={12}>
+          <Button variant="contained" onClick={shuffleList}>
             Go!
           </Button>
         </Grid>
@@ -59,31 +62,28 @@ function DivideTeam({ backgroundColors }: divideTeamProps) {
                 チーム{i + 1}
               </Typography>
             </Grid>
-            <Grid container justifyContent="center" direction="row">
-              {teamUsers.map(
-                (user: string, index) =>
-                  i === index % teamNum && (
-                    <Grid item xs={4} key={user}>
-                      <Box
-                        key={user}
-                        sx={{
-                          m: 1,
-                          borderRadius: 2,
-                          backgroundColor: backgroundColors[i % 4],
-                          color: "white",
-                          textAlign: "center",
-                          whiteSpace: "nowrap",
-                          width: { sm: 100, lg: 120 },
-                          height: { sm: 30, lg: 45 },
-                          lineHeight: "40px",
-                        }}
-                      >
-                        {user}
-                      </Box>
-                    </Grid>
-                  )
-              )}
-            </Grid>
+            {teamUsers.map(
+              (user: string, index) =>
+                i === index % teamNum && (
+                  <Grid item xs={12} key={user}>
+                    <Box
+                      key={user}
+                      sx={{
+                        borderRadius: 2,
+                        backgroundColor: backgroundColors[i % 4],
+                        color: "white",
+                        textAlign: "center",
+                        whiteSpace: "nowrap",
+                        width: 160,
+                        height: 40,
+                        lineHeight: "40px",
+                      }}
+                    >
+                      {user}
+                    </Box>
+                  </Grid>
+                )
+            )}
           </Grid>
         ))}
     </>
